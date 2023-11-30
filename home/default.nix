@@ -79,6 +79,8 @@ in
     khard
     zoom
     gnome-network-displays
+    cobang
+    nextcloud-client
   ];
 
   xdg.configFile."khard/khard.conf".text = ''
@@ -193,6 +195,7 @@ in
     };
     "org/gnome/desktop/input-sources" = {
       sources = [ (mkTuple [ "xkb" "fr+us" ]) ];
+      xkb-options = "[]";
     };
     "org/gnome/settings-daemon/plugins/power" = {
       sleep-inactive-ac-type = "nothing";
