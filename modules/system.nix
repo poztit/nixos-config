@@ -23,8 +23,9 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    layout = "us";
-    xkbOptions = "eurosign:e,caps:escape";
+    layout = "fr";
+    xkbVariant = "us";
+    xkbOptions = "caps:escape";
     libinput.enable = true;
   };
 
