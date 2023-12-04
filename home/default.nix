@@ -97,6 +97,7 @@ in
 
   imports = [
     ./programs/aerc.nix
+    ./programs/emacs/default.nix
     ./accounts/email.nix
   ];
 
@@ -143,10 +144,6 @@ in
 
     #vdirsyncer.enable = false;
 
-    emacs = {
-      enable = true;
-      package = pkgs.emacs29-pgtk;
-    };
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
@@ -214,7 +211,6 @@ in
   };
 
   #services.vdirsyncer.enable = true;
-  services.emacs.enable = true;
 
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
     [Desktop Entry]

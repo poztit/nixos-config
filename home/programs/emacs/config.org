@@ -1,0 +1,239 @@
+#+title: Emacs configuration
+#+author: poztit
+
+* Initial setup and package mirror configuration
+At begin, load up the custom file :
+#+begin_src emacs-lisp
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+#+end_src
+
+And add *MELPA* and *ELPA* repositories, install =use-package= :
+#+begin_src emacs-lisp
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("gnu"   . "https://elpa.gnu.org/packages/") t)
+  (package-initialize)
+
+  ;; Auto install use-package
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package))
+  (eval-and-compile
+    (setq use-package-always-ensure t
+          use-package-expand-minimally t))
+
+  (require 'use-package)
+#+end_src
+
+* UI, fonts, themes
+Remove the tool bar, menu bar and the scroll bar. Display line number in all buffer. Keep buffers synced with the files on disk :
+#+begin_src emacs-lisp
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (global-display-line-numbers-mode 1)
+  (global-auto-revert-mode 1)
+  (setq history-length 25)
+  (savehist-mode 1)
+#+end_src
+
+Remove the startup message :
+#+begin_src emacs-lisp
+(setq inhibit-startup-message t)
+#+end_src
+
+Maximize the window :
+#+begin_src emacs-lisp
+    (toggle-frame-maximized)
+#+end_src
+
+Disable Emacs backup file :
+#+begin_src emacs-lisp
+  (setq make-backup-files nil)
+#+end_src
+
+** Font
+Define the global font :
+#+begin_src emacs-lisp
+  (set-face-attribute 'default nil :family "Source Code Pro" :height 100)
+  (set-face-attribute 'fixed-pitch nil :family "Source Code Pro")
+  (set-face-attribute 'variable-pitch nil :family "Fira Sans" :height 120)
+#+end_src
+** Themes
+Use modus ligth and dark themes :
+#+begin_src emacs-lisp
+  (use-package modus-themes
+    :ensure t
+    :config
+    ;; Add all your customizations prior to loading the themes
+    (setq modus-themes-italic-constructs nil
+          modus-themes-bold-constructs t
+          modus-themes-mixed-fonts t
+
+          ;; Change background of code blocks
+          modus-themes-org-blocks 'gray-background
+
+          ;; Set the mode line borderless
+          ;; Make comment yellow
+          modus-themes-common-palette-overrides
+          `((border-mode-line-active unspecified)
+            (border-mode-line-inactive unspecified)
+            (comment yellow-faint))
+
+          ;; Change Org heading style
+          modus-themes-headings
+          '((0 . (variable-pitch 1.6))
+            (1 . (1.4))
+            (2 . (1.2))
+            (t . (1.1)))
+          )
+
+    ;; Loading the theme
+    (load-theme 'modus-vivendi-tinted t))
+
+  ;; Org config
+  (global-set-key (kbd "C-c l") #'org-store-link)
+  (global-set-key (kbd "C-c a") #'org-agenda)
+  (global-set-key (kbd "C-c c") #'org-capture)
+
+  (setq
+   org-catch-invisible-edits 'show-and-error
+   org-insert-heading-respect-content t
+   org-hide-emphasis-markers t
+   org-pretty-entities t)
+
+  (defun nolinenum() (display-line-numbers-mode 0))
+
+  (add-hook 'org-mode-hook 'variable-pitch-mode)
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (add-hook 'org-mode-hook 'org-indent-mode)
+  (add-hook 'org-mode-hook 'nolinenum)
+#+end_src
+
+* Completion, Linting and LSP
+** Which key
+#+begin_src emacs-lisp
+  (use-package which-key
+    :diminish which-key-mode
+    :init
+    (which-key-mode)
+    (which-key-setup-minibuffer)
+    :config
+    (setq which-key-idle-delay 0.3))
+#+end_src
+
+** Compagny
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :defer t
+    :init (global-company-mode)
+    :config
+    (setq company-minimum-prefix-length 1
+          company-idle-delay 0.0))
+#+end_src
+
+** LSP, eglot
+#+begin_src emacs-lisp
+  (use-package eglot :ensure t)
+  (add-to-list 'eglot-server-programs '(c++-mode) "ccls")
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+#+end_src
+
+** Syntax highlighting
+#+begin_src emacs-lisp
+  (use-package tree-sitter
+    :init (global-tree-sitter-mode))
+  (use-package tree-sitter-langs)
+#+end_src
+
+** Linting
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :init
+    (global-flycheck-mode)
+    (add-hook 'after-init-hook #'global-flycheck-mode)
+    (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++20"))))
+
+ ;; (use-package flycheck-languagetool
+ ;;   :hook (text-mode . flycheck-languagetool-setup)
+ ;;   :init
+ ;;   :custom
+ ;;   (flycheck-languagetool-server-port "8082")
+ ;;   (flycheck-languagetool-language "fr")
+ ;;   (flycheck-languagetool-server-jar "~/.local/share/languagetool/languagetool-server.jar"))
+#+end_src
+
+** C++ mode
+#+begin_src emacs-lisp
+  (use-package cc-mode
+    :config
+    (setq c-default-style "k&r")
+    (setq c-basic-offset 8))
+#+end_src
+
+** Languagetool
+#+begin_src emacs-lisp
+  (use-package languagetool
+    :commands (languagetool-check
+               languagetool-clear-suggestions
+               languagetool-correct-at-point
+               languagetool-correct-buffer
+               languagetool-set-language
+               languagetool-server-mode
+               languagetool-server-start
+               languagetool-server-stop)
+    :config
+    (setq languagetool-java-bin "/usr/bin/java"
+          languagetool-console-command "~/.nix-profile/share/languagetool-commandline.jar"
+          languagetool-server-command "~/.nix-profile/share/languagetool-server.jar"))
+#+end_src
+
+* Org mode
+Configure Org :
+#+begin_src emacs-lisp
+  (use-package org
+    :hook (org-mode . visual-line-mode)
+    :init
+    (global-set-key (kbd "C-c l") #'org-store-link)
+    (global-set-key (kbd "C-c a") #'org-agenda)
+    (global-set-key (kbd "C-c c") #'org-capture)
+    (setq org-log-done t)
+    (setq org-hide-emphasis-markers t)
+    (setq org-startup-indented t)
+    (setq org-pretty-entities nil)
+    (setq org-image-actual-width 300))
+#+end_src
+
+Add some style to Org :
+#+begin_src emacs-lisp
+  (use-package org-modern
+    :init
+    (add-hook 'org-mode-hook #'org-modern-mode)
+    (add-hook 'org-agenda-finalize-hook #'org-modern-agenda))
+#+end_src
+
+* Languages specific mode
+#+begin_src emacs-lisp
+  (use-package markdown-mode)
+  (use-package racket-mode)
+  (use-package cmake-mode)
+  (use-package meson-mode)
+  (use-package ledger-mode)
+  (use-package nix-mode
+    :mode "\\.nix\\'")
+  (use-package tex
+    :ensure auctex
+    :defer t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.tex$" . LaTeX-mode))
+    (setq TeX-auto-save t)
+    (setq TeX-parse-self t)
+    (setq-default TeX-master nil))
+
+  (use-package yaml-mode
+    :init
+    (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode)))
+#+end_src
