@@ -213,6 +213,9 @@ in
       two-finger-scrolling-enabled = true;
       tap-to-click = true;
     };
+    "org/gnome/nautilus/preferences" = {
+      default-folder-viewer = "list-view";
+    };
   };
 
   #services.vdirsyncer.enable = true;
