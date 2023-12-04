@@ -16,12 +16,24 @@
         inherit system;
         config.allowUnfree = true;
       };
-    in {
+    in
+    {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       nixosConfigurations = {
         "laptop" = nixpkgs.lib.nixosSystem {
           modules = [
             ./hosts/laptop/default.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.fillien = import ./home/default.nix;
+            }
+          ];
+        };
+        "desktop" = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/desktop/default.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
