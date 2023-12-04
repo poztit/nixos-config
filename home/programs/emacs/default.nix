@@ -8,7 +8,7 @@
       	'';
   };
 
-  xdg.configFile."emacs/config.org".source = ./config.org;
+  home.file.".emacs.d/config.org".source = ./config.org;
 
   services.emacs.enable = true;
 }
