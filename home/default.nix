@@ -57,6 +57,7 @@ in
     gnome.gnome-clocks
     gnome.gnome-weather
     gnome.gnome-tweaks
+    gthumb
     gnomeExtensions.appindicator
     htop
     nvme-cli
