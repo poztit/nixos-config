@@ -9,6 +9,8 @@
   #   useXkbConfig = true; # use xkbOptions in tty.
   # };
 
+  hardware.opengl.driSupport32Bit = true;
+  
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
@@ -68,5 +70,11 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+  };
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 }
