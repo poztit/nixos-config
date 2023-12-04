@@ -81,6 +81,7 @@ in
     gnome-network-displays
     cobang
     nextcloud-client
+    bitwarden
   ];
 
   xdg.configFile."khard/khard.conf".text = ''
