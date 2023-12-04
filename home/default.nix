@@ -188,6 +188,10 @@ in
       show-battery-percentage = true;
     };
     "org/gnome/desktop/calendar" = { show-weekdate = true; };
+    "org/gnome/desktop/background" = {
+      picture-uri = "";
+      primary-color = "#2e3440";
+    };
     "org/gnome/settings-daemon/plugins/color" = {
       night-light-enabled = true;
       night-light-schedule-automatic = true;
