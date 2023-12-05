@@ -83,6 +83,7 @@ in
     cobang
     nextcloud-client
     bitwarden
+    obsidian
   ];
 
   xdg.configFile."khard/khard.conf".text = ''
