@@ -113,6 +113,7 @@ in
     obsidian
     pinentry
     gnupg
+    obsidian
   ];
 
   fonts.fontconfig.enable = true;
