@@ -2,7 +2,7 @@
   accounts.email.accounts = {
     "Personal" = {
       address = "francois@illien.org";
-      userName = "francois@illien.org";
+      userName = "francois%40illien.org";
       realName = "François ILLIEN";
       passwordCommand = "pass personal-email";
       primary = true;
@@ -18,7 +18,7 @@
       };
       aerc = {
         enable = true;
-        smtpAuth = null;
+        smtpAuth = "login";
         extraAccounts = {
           archive = "Archives";
           folders-sort = "INBOX,mailing-lists,contrat@illien.org,achat@illien.org,Drafts,Sent,Trash,Junk,Archives";

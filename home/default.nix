@@ -83,6 +83,26 @@ in
     cobang
     nextcloud-client
     bitwarden
+    jq
+    signal-desktop
+    wl-clipboard
+
+    valgrind
+    massif-visualizer
+    clang-tools
+    cmake
+    ninja
+    gcc
+    doxygen
+    graphviz
+    gnuplot
+    gtest
+    (python311.withPackages(ps: with ps; [ pynvim numpy ]))
+    fd
+  ];
+
+  programs.neovim.plugins = [
+	pkgs.vimPlugins.nvim-treesitter
   ];
 
   xdg.configFile."khard/khard.conf".text = ''

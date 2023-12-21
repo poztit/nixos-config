@@ -10,7 +10,9 @@
   # };
 
   hardware.opengl.driSupport32Bit = true;
-  
+ 
+  hardware.ledger.enable = true;
+
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   services.pipewire = {
@@ -62,6 +64,7 @@
     git
     ripgrep
     xdg-desktop-portal-gnome
+    ledger-live-desktop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
