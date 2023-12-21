@@ -18,10 +18,24 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
   networking.hostName = "fillien-desktop";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   networking.firewall.enable = false;
+
+  environment.systemPackages = with pkgs; [
+    libva-utils
+    vdpauinfo
+    glxinfo
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

@@ -19,6 +19,7 @@ in
       EDITOR = "emacs";
       BROWSER = "brave";
       MOZ_ENABLE_WAYLAND = 1;
+      OPENAI_API_KEY = "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";
     };
     shellAliases = {
       # Replace ls by exa
@@ -48,6 +49,12 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    rmview
+    lua
+    texlab
+    inkscape
+    texstudio
+    wezterm
     firefox
     ledger
     hledger
@@ -61,7 +68,6 @@ in
     gnomeExtensions.appindicator
     htop
     nvme-cli
-    python39Packages.pygments
     ripgrep
     stow
     sublime-merge
@@ -78,12 +84,51 @@ in
     lz4
     mdcat
     khard
-    zoom
+    zoom-us
     gnome-network-displays
-    cobang
     nextcloud-client
     bitwarden
+    jq
+    signal-desktop
+    wl-clipboard
+    neovim
+    nodejs
+    unzip
+
+    framesh
+
+    valgrind
+    massif-visualizer
+    clang-tools
+    cmake
+    ninja
+    gcc
+    doxygen
+    graphviz
+    gnuplot
+    gtest
+    (python311.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
+    imagemagick
+    fd
+    obsidian
+    pinentry
+    gnupg
   ];
+
+  fonts.fontconfig.enable = true;
+  targets.genericLinux.enable = true;
+
+  imports = [
+    ./programs/aerc.nix
+    ./programs/emacs/default.nix
+    ./programs/wezterm/default.nix
+    ./accounts/email.nix
+  ];
+
+  xdg.configFile.nvim = {
+    source = ./programs/nvim;
+    recursive = true;
+  };
 
   xdg.configFile."khard/khard.conf".text = ''
     [addressbooks]
@@ -92,15 +137,6 @@ in
   '';
 
   xdg.configFile."aerc/univ-signature".source = ./accounts/univ-signature.txt;
-
-  fonts.fontconfig.enable = true;
-  targets.genericLinux.enable = true;
-
-  imports = [
-    ./programs/aerc.nix
-    ./programs/emacs/default.nix
-    ./accounts/email.nix
-  ];
 
   accounts.contact = {
     basePath = "Contacts";
@@ -160,7 +196,7 @@ in
     direnv.enable = true;
     zsh = {
       enable = true;
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       "oh-my-zsh" = {
         enable = true;
@@ -230,5 +266,6 @@ in
     enable = true;
     enableScDaemon = true;
     enableSshSupport = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 }
