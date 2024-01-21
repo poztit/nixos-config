@@ -34,6 +34,8 @@ Remove the tool bar, menu bar and the scroll bar. Display line number in all buf
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
   (global-display-line-numbers-mode 1)
+  (setq-default fill-column 100)
+  (global-display-fill-column-indicator-mode)
   (global-auto-revert-mode 1)
   (setq history-length 25)
   (savehist-mode 1)

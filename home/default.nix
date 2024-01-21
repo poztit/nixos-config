@@ -19,6 +19,7 @@ in
       EDITOR = "emacs";
       BROWSER = "brave";
       MOZ_ENABLE_WAYLAND = 1;
+      OPENAI_API_KEY = "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";
     };
     shellAliases = {
       # Replace ls by exa
@@ -48,6 +49,7 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    wezterm
     firefox
     ledger
     hledger
@@ -86,6 +88,7 @@ in
     jq
     signal-desktop
     wl-clipboard
+    neovim
 
     valgrind
     massif-visualizer
@@ -99,11 +102,13 @@ in
     gtest
     (python311.withPackages(ps: with ps; [ pynvim numpy ]))
     fd
+    obsidian
   ];
 
-  programs.neovim.plugins = [
-	pkgs.vimPlugins.nvim-treesitter
-  ];
+  xdg.configFile.nvim = {
+	source = ./programs/nvim;
+	recursive = true;
+  };
 
   xdg.configFile."khard/khard.conf".text = ''
     [addressbooks]
