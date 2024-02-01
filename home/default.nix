@@ -49,6 +49,8 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    inkscape
+    texstudio
     wezterm
     firefox
     ledger
@@ -63,7 +65,6 @@ in
     gnomeExtensions.appindicator
     htop
     nvme-cli
-    python39Packages.pygments
     ripgrep
     stow
     sublime-merge
@@ -80,15 +81,16 @@ in
     lz4
     mdcat
     khard
-    zoom
+    zoom-us
     gnome-network-displays
-    cobang
     nextcloud-client
     bitwarden
     jq
     signal-desktop
     wl-clipboard
     neovim
+    nodejs
+    unzip
 
     valgrind
     massif-visualizer
@@ -100,9 +102,19 @@ in
     graphviz
     gnuplot
     gtest
-    (python311.withPackages(ps: with ps; [ pynvim numpy ]))
+    (python311.withPackages(ps: with ps; [ pynvim numpy jupyter pygments seaborn ]))
     fd
     obsidian
+  ];
+
+  fonts.fontconfig.enable = true;
+  targets.genericLinux.enable = true;
+
+  imports = [
+    ./programs/aerc.nix
+    ./programs/emacs/default.nix
+    ./programs/wezterm/default.nix
+    ./accounts/email.nix
   ];
 
   xdg.configFile.nvim = {
@@ -117,15 +129,6 @@ in
   '';
 
   xdg.configFile."aerc/univ-signature".source = ./accounts/univ-signature.txt;
-
-  fonts.fontconfig.enable = true;
-  targets.genericLinux.enable = true;
-
-  imports = [
-    ./programs/aerc.nix
-    ./programs/emacs/default.nix
-    ./accounts/email.nix
-  ];
 
   accounts.contact = {
     basePath = "Contacts";
