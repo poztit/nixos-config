@@ -38,9 +38,9 @@
     enable = true;
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
-    layout = "fr";
-    xkbVariant = "us";
-    xkbOptions = "caps:escape";
+    xkb.layout = "fr";
+    xkb.variant = "us";
+    xkb.options = "caps:escape";
     libinput.enable = true;
   };
 

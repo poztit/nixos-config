@@ -49,6 +49,9 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    rmview
+    lua
+    texlab
     inkscape
     texstudio
     wezterm

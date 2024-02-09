@@ -14,7 +14,7 @@
         styleset-name = "modus";
       };
       viewer = {
-        pager = "less -Rs --use-color";
+        pager = "less -RSs";
         alternatives = "text/plain,text/html";
       };
       compose = {
