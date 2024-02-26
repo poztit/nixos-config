@@ -29,7 +29,6 @@ require("lazy").setup({
 	    "hrsh7th/nvim-cmp",
 	    "j-hui/fidget.nvim",
 	    "L3MON4D3/LuaSnip",
-	    "hrsh7th/nvim-cmp"
 	},
 	config = function() 
 	    local cmp = require('cmp')
