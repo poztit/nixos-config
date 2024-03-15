@@ -109,6 +109,8 @@ in
     imagemagick
     fd
     obsidian
+    pinentry
+    gnupg
   ];
 
   fonts.fontconfig.enable = true;
@@ -262,5 +264,6 @@ in
     enable = true;
     enableScDaemon = true;
     enableSshSupport = true;
+    pinentryPackage = pkgs.pinentry-gnome3;
   };
 }
