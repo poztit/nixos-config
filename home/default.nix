@@ -105,7 +105,8 @@ in
     graphviz
     gnuplot
     gtest
-    (python311.withPackages(ps: with ps; [ pynvim numpy jupyter pygments seaborn ]))
+    (python311.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
+    imagemagick
     fd
     obsidian
   ];
@@ -121,8 +122,8 @@ in
   ];
 
   xdg.configFile.nvim = {
-	source = ./programs/nvim;
-	recursive = true;
+    source = ./programs/nvim;
+    recursive = true;
   };
 
   xdg.configFile."khard/khard.conf".text = ''

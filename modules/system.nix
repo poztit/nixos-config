@@ -10,11 +10,11 @@
   # };
 
   nixpkgs.config.permittedInsecurePackages = [
-      "electron-25.9.0"
+    "electron-25.9.0"
   ];
 
   hardware.opengl.driSupport32Bit = true;
- 
+
   hardware.ledger.enable = true;
 
   security.rtkit.enable = true;
@@ -26,11 +26,12 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-  environment.etc."pipewire/pipewire.conf.d/10-default-clock.conf".text = ''
-    context.properties = {
-	default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
-    }
-  '';
+
+  #environment.etc."pipewire/pipewire.conf.d/10-default-clock.conf".text = ''
+  #      context.properties = {
+  #  	default.clock.allowed-rates = [ 44100 48000 88200 96000 176400 192000 ]
+  #      }
+  #'';
 
   services.dbus.enable = true;
 
@@ -64,7 +65,7 @@
 
   users.users.fillien = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "adbusers" ];
     shell = pkgs.zsh;
   };
   programs.zsh.enable = true;
@@ -85,6 +86,11 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  programs.adb.enable = true;
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 
   programs.steam = {
     enable = true;

@@ -19,11 +19,11 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   hardware.opengl = {
-	enable = true;
-	extraPackages = with pkgs; [
-	  vaapiVdpau
-	  libvdpau-va-gl
-	];
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
   };
 
   networking.hostName = "fillien-desktop";
