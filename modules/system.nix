@@ -35,7 +35,7 @@
   };
 
   services.dbus.enable = true;
-
+  services.libinput.enable = true;
   services.xserver = {
     enable = true;
     displayManager.gdm.enable = true;
@@ -43,7 +43,6 @@
     xkb.layout = "fr";
     xkb.variant = "us";
     xkb.options = "caps:escape";
-    libinput.enable = true;
   };
 
   environment.gnome.excludePackages = (with pkgs; [
