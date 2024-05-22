@@ -61,7 +61,16 @@
     gnome.cheese
   ]);
 
-  services.printing.enable = true;
+  services.printing = {
+      enable = true;
+      drivers = [ pkgs.epson-escpr ];
+  };
+
+  # For wireless printers
+  services.avahi = {
+      enable = true;
+      nssmdns = true;
+  };
 
   users.users.fillien = {
     isNormalUser = true;
