@@ -20,6 +20,22 @@ require("lazy").setup({
     end},
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
     {
+	'folke/zen-mode.nvim',
+	config = function()
+	    vim.keymap.set("n", "<leader>zz", function()
+		require("zen-mode").setup {
+		    window = {
+			width = 110,
+			options = {}
+		    },
+		}
+		require("zen-mode").toggle()
+		vim.wo.number = false
+		vim.wo.rnu = false
+	    end)
+	end
+    },
+    {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 	    "hrsh7th/cmp-nvim-lsp",
@@ -83,4 +99,4 @@ require("lazy").setup({
     }
 })
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")

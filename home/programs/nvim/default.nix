@@ -13,6 +13,7 @@
       cmp-cmdline
       fidget-nvim
       luasnip
+      nvim-treesitter
     ];
   };
 }
