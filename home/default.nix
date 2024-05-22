@@ -49,7 +49,7 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
-    rmview
+    scrcpy
     lua
     texlab
     inkscape
