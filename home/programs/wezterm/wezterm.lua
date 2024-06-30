@@ -12,7 +12,7 @@ rosepine.selection_fg = '#ffffff'
 
 config.color_schemes = { ['rose-pine'] = rosepine }
 config.enable_wayland = false
-config.font_size = 11
+config.font_size = 10
 config.color_scheme = 'rose-pine'
 config.hide_mouse_cursor_when_typing = false
 
