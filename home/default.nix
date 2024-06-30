@@ -72,7 +72,6 @@ in
     stow
     sublime-merge
     vlc
-    mattermost-desktop
     clang-tools
     calls
     libreoffice-fresh
@@ -89,7 +88,6 @@ in
     nextcloud-client
     bitwarden
     jq
-    signal-desktop
     wl-clipboard
     neovim
     nodejs
@@ -110,7 +108,6 @@ in
     (python311.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
     imagemagick
     fd
-    obsidian
     pinentry
     gnupg
     obsidian
@@ -256,7 +253,6 @@ in
   };
 
   #services.vdirsyncer.enable = true;
-
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
     [Desktop Entry]
     Type=Application
