@@ -62,14 +62,14 @@
   ]);
 
   services.printing = {
-      enable = true;
-      drivers = [ pkgs.epson-escpr ];
+    enable = true;
+    drivers = [ pkgs.epson-escpr ];
   };
 
   # For wireless printers
   services.avahi = {
-      enable = true;
-      nssmdns = true;
+    enable = true;
+    nssmdns = true;
   };
 
   users.users.fillien = {
