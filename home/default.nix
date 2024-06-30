@@ -52,6 +52,7 @@ in
     scrcpy
     lua
     texlab
+    endless-sky
     inkscape
     texstudio
     wezterm
