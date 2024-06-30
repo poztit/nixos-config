@@ -84,6 +84,8 @@
     wget
     git
     ripgrep
+    pciutils
+    usbutils
     xdg-desktop-portal-gnome
     ledger-live-desktop
   ];
