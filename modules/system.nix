@@ -13,7 +13,7 @@
   #  "electron-25.9.0"
   #];
 
-  hardware.opengl.driSupport32Bit = true;
+  hardware.graphics.enable32Bit = true;
 
   hardware.ledger.enable = true;
 
@@ -69,7 +69,7 @@
   # For wireless printers
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
   };
 
   users.users.fillien = {
