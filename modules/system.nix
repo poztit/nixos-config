@@ -33,7 +33,7 @@
       };
     };
   };
-
+  services.fwupd.enable = true;
   services.dbus.enable = true;
   services.libinput.enable = true;
   services.xserver = {

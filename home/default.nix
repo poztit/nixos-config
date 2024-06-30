@@ -110,7 +110,7 @@ in
     fd
     pinentry
     gnupg
-    obsidian
+    fwupd
   ];
 
   fonts.fontconfig.enable = true;
