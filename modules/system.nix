@@ -74,7 +74,7 @@
 
   users.users.fillien = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "adbusers" ];
+    extraGroups = [ "wheel" "adbusers" "scanner" "lp" ];
     shell = pkgs.zsh;
   };
   programs.zsh.enable = true;

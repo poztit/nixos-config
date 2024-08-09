@@ -49,6 +49,7 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    chromium
     scrcpy
     lua
     texlab
