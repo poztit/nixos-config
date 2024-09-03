@@ -16,7 +16,7 @@ in
     # release notes.
     stateVersion = "23.05"; # Please read the comment before changing.
     sessionVariables = {
-      EDITOR = "emacs";
+      EDITOR = "nvim";
       BROWSER = "brave";
       MOZ_ENABLE_WAYLAND = 1;
       OPENAI_API_KEY = "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";
