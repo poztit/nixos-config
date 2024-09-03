@@ -49,6 +49,9 @@ in
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
+    pinta
+    age
+    sops
     chromium
     scrcpy
     lua
