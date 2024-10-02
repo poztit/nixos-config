@@ -50,9 +50,12 @@ in
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
 
     pinta
+    pavucontrol
+    mpv
     age
     sops
     chromium
+    google-chrome
     scrcpy
     lua
     texlab
