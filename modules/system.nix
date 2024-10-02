@@ -35,19 +35,18 @@
   };
 
   environment.gnome.excludePackages = (with pkgs; [
-    gnome.gnome-music
-    gnome.totem
-    gnome-photos
+    gnome-music
+    totem
     gnome-tour
+    gnome-photos
     gnome-connections
     epiphany
     gedit
     calls
-    gnome.geary
-    gnome.gnome-maps
-    gnome.gnome-logs
-    gnome_mplayer
-    gnome.cheese
+    geary
+    gnome-maps
+    gnome-logs
+    cheese
   ]);
 
   services.printing = {
