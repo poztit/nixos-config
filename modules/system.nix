@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 {
   time.timeZone = "Europe/Paris";
 
@@ -6,6 +6,14 @@
   hardware.graphics.enable32Bit = true;
 
   hardware.ledger.enable = true;
+
+  sops.defaultSopsFile = ../secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.sshKeyPaths = [];
+  sops.gnupg.sshKeyPaths = [];
+  sops.age.keyFile = "/home/fillien/.config/sops/age/keys.txt";
+
+  sops.secrets.tailscale_key = {};
 
   security.rtkit.enable = true;
   hardware.pulseaudio.enable = false;
@@ -34,25 +42,57 @@
     xkb.options = "caps:escape";
   };
 
+  services.pcscd.enable = true;
+
   environment.gnome.excludePackages = (with pkgs; [
     gnome.gnome-music
-    gnome.totem
     gnome-photos
     gnome-tour
     gnome-connections
     epiphany
     gedit
     calls
-    gnome.geary
+    geary
+    totem
     gnome.gnome-maps
     gnome.gnome-logs
     gnome_mplayer
-    gnome.cheese
   ]);
 
   services.printing = {
     enable = true;
     drivers = [ pkgs.epson-escpr ];
+  };
+
+  services.tailscale.enable = true;
+
+
+  # create a oneshot job to authenticate to Tailscale
+  systemd.services.tailscale-autoconnect = {
+    description = "Automatic connection to Tailscale";
+
+    # make sure tailscale is running before trying to connect to tailscale
+    after = [ "network-pre.target" "tailscale.service" ];
+    wants = [ "network-pre.target" "tailscale.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    # set this service as a oneshot job
+    serviceConfig.Type = "oneshot";
+
+    # have the job run this shell script
+    script = with pkgs; ''
+      # wait for tailscaled to settle
+      sleep 2
+
+      # check if we are already authenticated to tailscale
+      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+      if [ $status = "Running" ]; then # if so, then do nothing
+        exit 0
+      fi
+
+      # otherwise authenticate with tailscale
+      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.tailscale_key.path}
+    '';
   };
 
   # For wireless printers
@@ -77,6 +117,8 @@
     usbutils
     xdg-desktop-portal-gnome
     ledger-live-desktop
+    tailscale
+    age-plugin-yubikey
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -97,7 +139,6 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
-
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [

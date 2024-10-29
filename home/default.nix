@@ -48,11 +48,14 @@ in
     source-code-pro
     source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
+    chromium
+    google-chrome
+    yubioath-flutter
 
+    sops
     pinta
     age
-    sops
-    chromium
+    mpv
     scrcpy
     lua
     texlab
@@ -68,7 +71,7 @@ in
     gnome.gnome-backgrounds
     gnome.gnome-clocks
     gnome.gnome-weather
-    gnome.gnome-tweaks
+    gnome-tweaks
     gthumb
     gnomeExtensions.appindicator
     htop
@@ -78,7 +81,6 @@ in
     sublime-merge
     vlc
     clang-tools
-    calls
     libreoffice-fresh
     evince
     node2nix
@@ -110,7 +112,7 @@ in
     graphviz
     gnuplot
     gtest
-    (python311.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
+    (python312.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
     imagemagick
     fd
     pinentry

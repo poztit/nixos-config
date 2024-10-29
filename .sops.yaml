@@ -1,0 +1,8 @@
+keys:
+  - &fillien age1kq238qgqz36h6zr28eudwfap8p9revnezfcxjvg5hmx052jn0ets3u2s69
+
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+    - age:
+      - *fillien
