@@ -64,10 +64,10 @@ in
     git-crypt
     gnome-network-displays
     gnome-tweaks
-    gnome.gnome-backgrounds
-    gnome.gnome-clocks
-    gnome.gnome-settings-daemon
-    gnome.gnome-weather
+    gnome-backgrounds
+    gnome-clocks
+    gnome-settings-daemon
+    gnome-weather
     gnomeExtensions.appindicator
     gnupg
     gnuplot
@@ -79,6 +79,7 @@ in
     htop
     imagemagick
     inkscape
+    jetbrains-mono
     jq
     khard
     languagetool
@@ -88,7 +89,6 @@ in
     lz4
     massif-visualizer
     mdcat
-    mpv
     mpv
     neovim
     nextcloud-client
