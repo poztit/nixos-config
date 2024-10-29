@@ -7,8 +7,8 @@ if wezterm.config_builder then
 end
 
 local rosepine = wezterm.color.get_builtin_schemes()['rose-pine']
-rosepine.selection_bg = '#000000'
-rosepine.selection_fg = '#ffffff'
+rosepine.selection_bg = '#e0def4'
+rosepine.selection_fg = '#191724'
 
 config.color_schemes = { ['rose-pine'] = rosepine }
 config.enable_wayland = false

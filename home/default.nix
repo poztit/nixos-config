@@ -44,80 +44,78 @@ in
   # environment.
 
   home.packages = with pkgs; [
-    fira
-    source-code-pro
-    source-sans-pro
     (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
-    chromium
-    google-chrome
-    yubioath-flutter
-
-    sops
-    pinta
+    (python312.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
     age
-    mpv
-    scrcpy
-    lua
-    texlab
-    endless-sky
-    inkscape
-    texstudio
-    wezterm
-    firefox
-    ledger
-    hledger
-    eza
-    gnome.gnome-settings-daemon
-    gnome.gnome-backgrounds
-    gnome.gnome-clocks
-    gnome.gnome-weather
-    gnome-tweaks
-    gthumb
-    gnomeExtensions.appindicator
-    htop
-    nvme-cli
-    ripgrep
-    stow
-    sublime-merge
-    vlc
-    clang-tools
-    libreoffice-fresh
-    evince
-    node2nix
-    pass
-    git-crypt
-    languagetool
-    lz4
-    mdcat
-    khard
-    zoom-us
-    gnome-network-displays
-    nextcloud-client
     bitwarden
-    jq
-    wl-clipboard
-    neovim
-    nodejs
-    unzip
-
-    framesh
-
-    valgrind
-    massif-visualizer
+    chromium
     clang-tools
     cmake
-    ninja
-    gcc
     doxygen
-    graphviz
-    gnuplot
-    gtest
-    (python312.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
-    imagemagick
+    endless-sky
+    evince
+    eza
     fd
-    pinentry
-    gnupg
+    fira
+    firefox
+    framesh
     fwupd
+    gcc
+    git-crypt
+    gnome-network-displays
+    gnome-tweaks
+    gnome.gnome-backgrounds
+    gnome.gnome-clocks
+    gnome.gnome-settings-daemon
+    gnome.gnome-weather
+    gnomeExtensions.appindicator
+    gnupg
+    gnuplot
+    google-chrome
+    graphviz
+    gtest
+    gthumb
+    hledger
+    htop
+    imagemagick
+    inkscape
+    jq
+    khard
+    languagetool
+    ledger
+    libreoffice-fresh
+    lua
+    lz4
+    massif-visualizer
+    mdcat
+    mpv
+    mpv
+    neovim
+    nextcloud-client
+    ninja
+    node2nix
+    nodejs
+    nvme-cli
+    pass
+    pavucontrol
+    pinentry
+    pinta
+    ripgrep
+    scrcpy
+    sops
+    source-code-pro
+    source-sans-pro
+    stow
+    sublime-merge
+    texlab
+    texstudio
+    unzip
+    valgrind
+    vlc
+    wezterm
+    wl-clipboard
+    yubioath-flutter
+    zoom-us
   ];
 
   fonts.fontconfig.enable = true;

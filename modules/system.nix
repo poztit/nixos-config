@@ -45,18 +45,18 @@
   services.pcscd.enable = true;
 
   environment.gnome.excludePackages = (with pkgs; [
-    gnome.gnome-music
+    calls
+    cheese
+    epiphany
+    geary
+    gedit
+    gnome-connections
+    gnome-logs
+    gnome-maps
+    gnome-music
     gnome-photos
     gnome-tour
-    gnome-connections
-    epiphany
-    gedit
-    calls
-    geary
     totem
-    gnome.gnome-maps
-    gnome.gnome-logs
-    gnome_mplayer
   ]);
 
   services.printing = {
