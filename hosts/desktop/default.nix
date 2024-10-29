@@ -3,7 +3,6 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, ... }:
-
 {
   imports =
     [
@@ -15,8 +14,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   hardware.graphics = {
     enable = true;
@@ -29,21 +30,11 @@
   networking.hostName = "fillien-desktop";
   networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
-  networking.firewall.enable = false;
-
   environment.systemPackages = with pkgs; [
     libva-utils
     vdpauinfo
     glxinfo
   ];
-
-  hardware.sane = {
-    enable = true;
-    extraBackends = [ pkgs.sane-airscan pkgs.epkowa ];
-
-  };
-
-  services.ipp-usb.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
