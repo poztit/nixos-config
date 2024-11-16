@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -14,8 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    {'nvim-telescope/telescope.nvim', tag = '0.1.5', dependencies = { 'nvim-lua/plenary.nvim' }},
-    { 'rose-pine/neovim', name = 'rose-pine', config = function()
+    {'nvim-telescope/telescope.nvim', tag = '0.1.5', dependencies = {'nvim-lua/plenary.nvim'}},
+    {'rose-pine/neovim', name = 'rose-pine', config = function()
 	vim.cmd("colorscheme rose-pine")
     end},
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
@@ -105,4 +103,37 @@ require("lazy").setup({
     }
 })
 
--- vim.lsp.set_log_level("debug")
+
+require('nvim-treesitter.configs').setup({
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  -- ensure_installed = { "c", "cpp", "cmake", "lua", "vimdoc", "query" },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  -- auto_install = true,
+
+  highlight = {
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+})
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+    pattern = {"*.dllu"}, -- replace with the file extension
+    command = "set filetype=dllup" -- replace with the name of the syntax file (without .vim)
+})
+
+-- Remap
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<leader>ps', builtin.live_grep, {}) 
