@@ -17,9 +17,8 @@ in
     stateVersion = "23.05"; # Please read the comment before changing.
     sessionVariables = {
       EDITOR = "nvim";
-      BROWSER = "brave";
+      BROWSER = "google-chrome-stable";
       MOZ_ENABLE_WAYLAND = 1;
-      OPENAI_API_KEY = "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";
     };
     shellAliases = {
       # Replace ls by exa
