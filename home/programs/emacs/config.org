@@ -1,5 +1,5 @@
 #+title: Emacs configuration
-#+author: poztit
+#+author: fillien
 
 * Initial setup and package mirror configuration
 At begin, load up the custom file :

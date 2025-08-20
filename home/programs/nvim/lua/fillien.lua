@@ -13,9 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     {'nvim-telescope/telescope.nvim', tag = '0.1.5', dependencies = {'nvim-lua/plenary.nvim'}},
-    {'rose-pine/neovim', name = 'rose-pine', config = function()
-	vim.cmd("colorscheme rose-pine")
-    end},
+ --    {'rose-pine/neovim', name = 'rose-pine', config = function()
+	-- vim.cmd("colorscheme rose-pine")
+ --    end},
+    {'EdenEast/nightfox.nvim'},
     {'nvim-treesitter/nvim-treesitter', build = ':TSUpdate'},
     {
 	'folke/zen-mode.nvim',
@@ -126,9 +127,15 @@ require('nvim-treesitter.configs').setup({
   },
 })
 
-vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
-    pattern = {"*.dllu"}, -- replace with the file extension
-    command = "set filetype=dllup" -- replace with the name of the syntax file (without .vim)
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    vim.cmd("sleep 1m")
+    if vim.o.background == "dark" then
+      vim.cmd("colorscheme nightfox")
+    else
+      vim.cmd("colorscheme dayfox")
+    end
+  end,
 })
 
 -- Remap
@@ -137,3 +144,4 @@ vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 vim.keymap.set('n', '<leader>ps', builtin.live_grep, {}) 
+

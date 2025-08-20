@@ -30,20 +30,15 @@ in
       lla = "eza --long --icons --all --sort type --classify";
       lt = "eza --tree --sort type";
 
-      # Cat with syntax highlighting
       ccat = "pygmentize -g -O style=stata-dark,linenos=1";
 
-      # Use Neovim in place of Vim
       vim = "nvim";
     };
     sessionPath = [ "$HOME/univ-nantes/tools" "$HOME/univ-nantes/thèse/tools" ];
   };
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" "Iosevka" ]; })
     (python312.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
     age
     bitwarden
@@ -165,24 +160,6 @@ in
 
   programs = {
     home-manager.enable = true;
-    #firefox = {
-    #  enable = true;
-    #  package = pkgs.firefox-wayland;
-    #  profiles."fillien" = {
-    #  	settings = {
-    #      "layout.css.prefers-color-scheme.content-override" = 0;
-    #      "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-    #      "intl.locale.requested" = "fr,en-US";
-    #      "signon.rememberSignons" = false;
-    #      "browser.startup.page" = 3;
-    #      "browser.newtabpage.activity-stream.feeds.topsites" = false;
-    #      "extensions.formautofill.creditCards.enabled" = false;
-    #    };
-    #  };
-    #};
-
-    #vdirsyncer.enable = false;
-
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
