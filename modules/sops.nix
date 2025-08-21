@@ -1,9 +1,9 @@
 { lib, pkgs, ... }:
 let
-  rootHome = if pkgs.stdenv.hostPlatform.isDarwin then "/Users/francoisillien" else "/home/fillien";
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  rootHome = if isDarwin then "/Users/francoisillien" else "/home/fillien";
   keyFilePath = "${rootHome}/.config/sops/age/keys.txt";
-in
-{
+in {
   sops = {
     defaultSopsFile = ../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";

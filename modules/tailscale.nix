@@ -1,27 +1,28 @@
-{ config, pkgs, ... }:
-{
-  sops.secrets.tailscale_key = { };
-  services.tailscale.enable = true;
-  systemd.services.tailscale-autoconnect = {
-    description = "Automatic connection to Tailscale";
-    after = [ "network-pre.target" "tailscale.service" ];
-    wants = [ "network-pre.target" "tailscale.service" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig.Type = "oneshot";
-    script = with pkgs; ''
-      sleep 2
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then
-        exit 0
-      fi
-      ${tailscale}/bin/tailscale up --auth-key file:${config.sops.secrets.tailscale_key.path}
-    '';
-  };
+{ config, lib, ... }:
 
+let
+  sys = (builtins.currentSystem or "");
+  isLinux = lib.hasSuffix "-linux" sys;
+in {
+  sops.secrets.tailscale_key = { };
+
+  services.tailscale =
+    {
+      enable = true;
+      # Optionally add extra flags for 'tailscale up', e.g.:
+      # extraUpFlags = [ "--accept-dns=false" "--advertise-exit-node" ];
+    }
+    // lib.optionalAttrs isLinux {
+      # Only NixOS module exposes `authKeyFile`.
+      authKeyFile = config.sops.secrets.tailscale_key.path;
+    };
+
+  # Apply firewall config only on Linux; Darwin doesn't have `networking.firewall`.
+} // lib.optionalAttrs isLinux {
   networking.firewall = {
     enable = true;
     trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [ (lib.attrByPath [ "services" "tailscale" "port" ] 41641 config) ];
     allowedTCPPorts = [ 22 ];
   };
 }

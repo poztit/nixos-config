@@ -1,4 +1,10 @@
 { self, pkgs, ... }: {
+
+  imports =
+    [
+      ../modules/tailscale.nix
+    ];
+
   environment.systemPackages =
     [
       pkgs.vim
@@ -18,6 +24,7 @@
   security.sudo.extraConfig = ''
     Defaults env_keep += "SSH_AUTH_SOCK"
   '';
+
 
   programs.ssh.extraConfig = ''
     Host eu.nixbuild.net
