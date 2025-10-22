@@ -110,7 +110,7 @@
       };
       deploy.nodes."server" = {
         hostname = "fillien-desktop";
-        sshUser = "root";
+        sshUser = "admin";
         profiles.system = {
           user = "root";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server;
