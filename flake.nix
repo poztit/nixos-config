@@ -51,6 +51,12 @@
             }
           ];
         };
+        "server" = nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/server/default.nix
+            sops-nix.nixosModules.sops
+          ];
+        };
       };
       darwinConfigurations."macbook" = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
