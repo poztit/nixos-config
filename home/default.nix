@@ -38,7 +38,9 @@ in
   };
 
   home.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "FantasqueSansMono" "Iosevka" ]; })
+    nerd-fonts.fira-code
+    nerd-fonts.fantasque-sans-mono
+    nerd-fonts.iosevka
     (python312.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn plotly ]))
     age
     bitwarden

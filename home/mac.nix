@@ -5,6 +5,7 @@ let
 in
 {
   sops.secrets.openai_key = { };
+  sops.secrets.xai_key = { };
   home = {
     username = "francoisillien";
     homeDirectory = "/Users/francoisillien";
@@ -12,8 +13,9 @@ in
     sessionVariables = {
       GPG_TTY = "$(tty)";
       SSH_AUTH_SOCK = "$(gpgconf --list-dirs agent-ssh-socket)";
-      PATH = "$HOME/.lmstudio/bin:$PATH";
+      PATH = "$HOME/.lmstudio/bin:$HOME/.local/bin:$PATH";
       OPENAI_API_KEY = "$(cat ${config.sops.secrets.openai_key.path})";
+      XAI_API_KEY = "$(cat ${config.sops.secrets.xai_key.path})";
       EDITOR = "vim";
     };
     shellAliases = {
@@ -36,6 +38,7 @@ in
     (python313.withPackages (ps: with ps; [ pynvim numpy jupyter pygments seaborn ]))
     age
     clang-tools
+    magic-wormhole
 
     gcc
     gnumake

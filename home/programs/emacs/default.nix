@@ -2,7 +2,7 @@
 {
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs29-pgtk;
+    package = pkgs.emacs30-pgtk;
     extraConfig = ''
               (org-babel-load-file (expand-file-name "config.org" user-emacs-directory))	
       	'';
