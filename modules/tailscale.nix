@@ -3,7 +3,8 @@
 let
   sys = (builtins.currentSystem or "");
   isLinux = lib.hasSuffix "-linux" sys;
-in {
+in
+{
   sops.secrets.tailscale_key = { };
 
   services.tailscale =
@@ -13,11 +14,9 @@ in {
       # extraUpFlags = [ "--accept-dns=false" "--advertise-exit-node" ];
     }
     // lib.optionalAttrs isLinux {
-      # Only NixOS module exposes `authKeyFile`.
       authKeyFile = config.sops.secrets.tailscale_key.path;
     };
 
-  # Apply firewall config only on Linux; Darwin doesn't have `networking.firewall`.
 } // lib.optionalAttrs isLinux {
   networking.firewall = {
     enable = true;
