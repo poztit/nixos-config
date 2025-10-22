@@ -11,12 +11,6 @@
 
   services.fwupd.enable = true;
 
-  users.users.fillien = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    shell = pkgs.zsh;
-  };
-
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
