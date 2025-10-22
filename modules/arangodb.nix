@@ -1,40 +1,50 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.arangodb = {
+  # Enable Podman for container management
+  virtualisation.podman = {
     enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
-    # Database configuration
-    databasePath = "/var/lib/arangodb3";
+  # Create systemd service for ArangoDB container
+  systemd.services.arangodb = {
+    description = "ArangoDB Database Server";
+    after = [ "network.target" "podman.service" ];
+    wants = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
 
-    # Network configuration
-    # Listen on all interfaces - adjust as needed for security
-    endpoints = [
-      "tcp://0.0.0.0:8529"
-    ];
+    serviceConfig = {
+      Type = "simple";
+      Restart = "always";
+      RestartSec = "10s";
 
-    # Enable authentication
-    authentication = true;
+      # Ensure data directory exists
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/mkdir -p /var/lib/arangodb3"
+        "${pkgs.coreutils}/bin/chown -R 1000:1000 /var/lib/arangodb3"
+      ];
 
-    # Additional settings can be configured here
-    extraOptions = [
-      "--server.statistics=true"
-      "--log.level=info"
-    ];
+      # Run ArangoDB container
+      ExecStart = ''
+        ${pkgs.podman}/bin/podman run --rm \
+          --name arangodb \
+          -p 8529:8529 \
+          -v /var/lib/arangodb3:/var/lib/arangodb3 \
+          -e ARANGO_NO_AUTH=1 \
+          docker.io/arangodb/arangodb:latest
+      '';
+
+      ExecStop = "${pkgs.podman}/bin/podman stop -t 10 arangodb";
+    };
   };
 
   # Open firewall port for ArangoDB
   networking.firewall.allowedTCPPorts = [ 8529 ];
 
-  # Ensure the service has proper permissions
-  systemd.services.arangodb3 = {
-    serviceConfig = {
-      # Additional security hardening
-      PrivateTmp = true;
-      NoNewPrivileges = true;
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      ReadWritePaths = [ "/var/lib/arangodb3" "/var/log/arangodb3" ];
-    };
-  };
+  # Create data directory
+  systemd.tmpfiles.rules = [
+    "d /var/lib/arangodb3 0755 1000 1000 -"
+  ];
 }
