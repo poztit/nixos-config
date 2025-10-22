@@ -6,9 +6,9 @@
     isNormalUser = true;
     description = "System Administrator";
     extraGroups = [
-      "wheel"       # sudo access
+      "wheel" # sudo access
       "networkmanager"
-      "docker"      # if docker is used
+      "docker" # if docker is used
     ];
     shell = pkgs.zsh;
 

@@ -62,9 +62,9 @@
         hostName = "fillien-desktop"; # e.g., "192.168.1.50"
         sshUser = "builder";
         system = "x86_64-linux";
-        protocol = "ssh";     # (Nix uses ssh-ng under the hood when available)
-        maxJobs = 8;          # match the server’s max-jobs
-        speedFactor = 2;      # higher = prefer this machine more often
+        protocol = "ssh"; # (Nix uses ssh-ng under the hood when available)
+        maxJobs = 8; # match the server’s max-jobs
+        speedFactor = 2; # higher = prefer this machine more often
         supportedFeatures = [ "big-parallel" "kvm" "benchmark" "nixos-test" ];
       }
     ];
