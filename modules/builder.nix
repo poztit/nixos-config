@@ -21,9 +21,13 @@
     enable = true;
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
-    settings.PermitRootLogin = "no";
+    settings.PermitRootLogin = "prohibit-password";
   };
   networking.firewall.allowedTCPPorts = [ 22 ];
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ9OxDFFSebwOs3fzk9rKXtMrg/5P7JfSOvRodgwamF2 cardno:17_743_598"
+  ];
 
   users.users.builder = {
     isNormalUser = true;
@@ -47,6 +51,8 @@
     neovim
     pciutils
     wget
+    podman
+    magic-wormhole
   ];
 
   programs.gnupg.agent = {

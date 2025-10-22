@@ -2,7 +2,7 @@
 
   imports =
     [
-      ../modules/tailscale.nix
+      # ../modules/tailscale.nix
     ];
 
   environment.systemPackages =
@@ -10,6 +10,7 @@
       pkgs.vim
       pkgs.clang-tools
       pkgs.clang
+      pkgs.nixos-rebuild
     ];
 
   nix.settings.experimental-features = "nix-command flakes";
@@ -38,6 +39,10 @@
       hostNames = [ "eu.nixbuild.net" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
     };
+    home-builder = {
+      hostNames = [ "fillien-desktop" ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGfO1kZxCImWUUjXz3HJb01xBn0FP8XiIel61uBxEkY";
+    };
   };
 
   environment.variables = {
@@ -52,6 +57,15 @@
         system = "x86_64-linux";
         maxJobs = 100;
         supportedFeatures = [ "benchmark" "big-parallel" ];
+      }
+      {
+        hostName = "fillien-desktop"; # e.g., "192.168.1.50"
+        sshUser = "builder";
+        system = "x86_64-linux";
+        protocol = "ssh";     # (Nix uses ssh-ng under the hood when available)
+        maxJobs = 8;          # match the server’s max-jobs
+        speedFactor = 2;      # higher = prefer this machine more often
+        supportedFeatures = [ "big-parallel" "kvm" "benchmark" "nixos-test" ];
       }
     ];
   };
