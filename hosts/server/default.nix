@@ -8,6 +8,8 @@
     [
       ./hardware-configuration.nix
       ../../modules/builder.nix
+      ../../modules/arangodb.nix
+      ../../modules/admin-user.nix
     ];
 
   nixpkgs.config.allowUnfree = lib.mkDefault true;
