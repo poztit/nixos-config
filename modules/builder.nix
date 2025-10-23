@@ -1,8 +1,8 @@
 { config, inputs, pkgs, ... }:
 {
   imports = [
-    # ./sops.nix - Not needed on server, no secrets required
-    # ./tailscale.nix - Not configured on server
+    ./sops.nix
+    ./tailscale.nix
   ];
 
   time.timeZone = "Europe/Paris";
