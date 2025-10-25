@@ -10,6 +10,7 @@
       ../../modules/builder.nix
       ../../modules/arangodb.nix
       ../../modules/admin-user.nix
+      ../../modules/nix-optimization.nix
     ];
 
   nixpkgs.config.allowUnfree = lib.mkDefault true;

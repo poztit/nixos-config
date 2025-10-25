@@ -63,11 +63,49 @@
         sshUser = "builder";
         system = "x86_64-linux";
         protocol = "ssh"; # (Nix uses ssh-ng under the hood when available)
-        maxJobs = 8; # match the server’s max-jobs
+        maxJobs = 8; # match the server's max-jobs
         speedFactor = 2; # higher = prefer this machine more often
         supportedFeatures = [ "big-parallel" "kvm" "benchmark" "nixos-test" ];
       }
     ];
+
+    # Nix store optimization settings
+    settings = {
+      # Fix download buffer warning - increase from default 64MB to 256MB
+      download-buffer-size = 268435456; # 256MB in bytes
+
+      # Note: auto-optimise-store is NOT used on nix-darwin as it can corrupt the store
+      # Use nix.optimise.automatic instead (configured below)
+
+      # Disk space management - auto-trigger GC when space is low
+      min-free = 5368709120; # 5GB
+      max-free = 10737418240; # 10GB
+
+      # Keep build-time dependencies for better debugging
+      keep-derivations = true;
+      keep-outputs = true;
+
+      # Performance optimizations
+      http-connections = 50; # parallel downloads
+      download-attempts = 3;
+      connect-timeout = 5;
+
+      # Cache settings for faster builds
+      narinfo-cache-negative-ttl = 3600; # 1 hour
+    };
+
+    # Automatic garbage collection
+    gc = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 3; Minute = 0; }; # Weekly on Sunday at 3am
+      options = "--delete-older-than 60d";
+    };
+
+    # Periodic store optimization
+    optimise = {
+      automatic = true;
+      interval = { Weekday = 0; Hour = 4; Minute = 0; }; # Weekly on Sunday at 4am
+    };
   };
 
   launchd.daemons.nix-daemon.serviceConfig = {
