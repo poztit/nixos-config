@@ -33,7 +33,8 @@
           -p 8529:8529 \
           -v /var/lib/arangodb3:/var/lib/arangodb3 \
           -e ARANGO_NO_AUTH=1 \
-          docker.io/arangodb/arangodb:latest
+          docker.io/arangodb/arangodb:latest \
+          --experimental-vector-index=true
       '';
 
       ExecStop = "${pkgs.podman}/bin/podman stop -t 10 arangodb";
