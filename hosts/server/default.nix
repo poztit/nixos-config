@@ -8,9 +8,19 @@
     [
       ./hardware-configuration.nix
       ../../modules/builder.nix
-      ../../modules/arangodb.nix
       ../../modules/admin-user.nix
       ../../modules/nix-optimization.nix
+      # Database and storage services
+      ../../modules/arangodb.nix
+      ../../modules/postgresql.nix
+      # RAGFlow dependencies
+      ../../modules/redis.nix
+      ../../modules/elasticsearch.nix
+      ../../modules/minio.nix
+      # RAGFlow application
+      ../../modules/ragflow.nix
+      # Reverse proxy
+      ../../modules/nginx.nix
     ];
 
   nixpkgs.config.allowUnfree = lib.mkDefault true;
