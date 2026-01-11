@@ -5,7 +5,7 @@ let
   isLinux = lib.hasSuffix "-linux" sys;
 in
 {
-  sops.secrets.tailscale_key = { };
+  # Secret is defined in modules/sops.nix
 
   services.tailscale =
     {
@@ -22,6 +22,9 @@ in
     enable = true;
     trustedInterfaces = [ "tailscale0" ];
     allowedUDPPorts = [ (lib.attrByPath [ "services" "tailscale" "port" ] 41641 config) ];
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [
+      22   # SSH
+      80   # Nginx (RAGFlow via Tailscale)
+    ];
   };
 }
