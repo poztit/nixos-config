@@ -1,5 +1,7 @@
 { self, pkgs, ... }: {
 
+  nixpkgs.config.allowUnfree = true;
+
   imports =
     [
       # ../modules/tailscale.nix
