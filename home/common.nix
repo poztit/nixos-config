@@ -30,6 +30,7 @@
       fira
       source-code-pro
       source-sans-pro
+      open-sans
 
       # Development tools
       age
