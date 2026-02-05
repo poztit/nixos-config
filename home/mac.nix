@@ -75,7 +75,7 @@
     settings = {
       theme = "light:Atom One Light,dark:Atom One Dark";
       window-theme = "auto";
-      font-family = "FiraCode Nerd Font";
+      font-family = "JetBrainsMono Nerd Font";
       font-size = 14;
       command = "${pkgs.nushell}/bin/nu";
     };
@@ -138,7 +138,7 @@
 
       # Light theme colors - darker colors for light backgrounds
       const light_theme = {
-        separator: light_gray
+        separator: dark_gray
         leading_trailing_space_bg: { attr: n }
         header: dark_gray
         empty: blue
@@ -156,18 +156,18 @@
         row_index: dark_green
         record: black
         list: black
-        hints: light_gray
+        hints: dark_gray
         shape_garbage: red_bold
         shape_binary: purple
         shape_bool: dark_cyan
         shape_int: purple
         shape_float: purple
-        shape_range: yellow
+        shape_range: { fg: "#806600" }
         shape_internalcall: blue_bold
         shape_external: blue
         shape_externalarg: dark_green
         shape_literal: dark_blue
-        shape_operator: yellow
+        shape_operator: { fg: "#806600" }
         shape_signature: dark_green
         shape_string: dark_green
         shape_string_interpolation: dark_cyan
@@ -225,6 +225,7 @@
         "/run/current-system/sw/bin"
         "/nix/var/nix/profiles/default/bin"
         $"($env.HOME)/.nix-profile/bin"
+        "/opt/homebrew/bin"
         $"($env.HOME)/.lmstudio/bin"
         $"($env.HOME)/.local/bin"
       ])

@@ -27,13 +27,17 @@
       nerd-fonts.fira-code
       nerd-fonts.fantasque-sans-mono
       nerd-fonts.iosevka
+      nerd-fonts.jetbrains-mono
       fira
       source-code-pro
       source-sans-pro
+      source-serif
       open-sans
+      google-fonts
 
       # Development tools
       age
+      imagemagick
       clang-tools
       fd
       gh
