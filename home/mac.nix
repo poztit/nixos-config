@@ -1,5 +1,14 @@
 { lib, config, pkgs, ... }:
 
+let
+  # Dynamic environment variables shared between POSIX shells (zsh, bash)
+  posixDynamicEnv = ''
+    export GPG_TTY=$(tty)
+    export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
+    export OPENAI_API_KEY=$(cat ${config.sops.secrets.openai_key.path})
+    export XAI_API_KEY=$(cat ${config.sops.secrets.xai_key.path})
+  '';
+in
 {
   imports = [ ./common.nix ];
 
@@ -17,6 +26,7 @@
     file.".hushlogin".text = "";
     sessionVariables = {
       PATH = "$HOME/.lmstudio/bin:$HOME/.local/bin:$PATH";
+      EDITOR = "nvim";
     };
   };
 
@@ -68,6 +78,14 @@
   # macOS-specific: Nushell integration
   programs.starship.enableNushellIntegration = true;
   programs.direnv.enableNushellIntegration = true;
+
+  # Enable bash and set dynamic env vars for POSIX shells
+  programs.bash = {
+    enable = true;
+    initExtra = posixDynamicEnv;
+  };
+
+  programs.zsh.envExtra = posixDynamicEnv;
 
   programs.ghostty = {
     enable = true;
