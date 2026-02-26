@@ -16,6 +16,7 @@
     ];
 
   nix.settings.experimental-features = "nix-command flakes";
+  nix.settings.trusted-users = [ "root" "francoisillien" ];
 
   programs.zsh.enable = true;
 
@@ -42,7 +43,7 @@
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
     };
     home-builder = {
-      hostNames = [ "fillien-desktop" ];
+      hostNames = [ "100.108.195.45" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGfO1kZxCImWUUjXz3HJb01xBn0FP8XiIel61uBxEkY";
     };
   };
@@ -61,7 +62,7 @@
         supportedFeatures = [ "benchmark" "big-parallel" ];
       }
       {
-        hostName = "fillien-desktop"; # e.g., "192.168.1.50"
+        hostName = "100.108.195.45";
         sshUser = "builder";
         system = "x86_64-linux";
         protocol = "ssh"; # (Nix uses ssh-ng under the hood when available)
