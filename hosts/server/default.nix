@@ -10,21 +10,14 @@
       ../../modules/builder.nix
       ../../modules/admin-user.nix
       ../../modules/nix-optimization.nix
-      # Database and storage services
-      ../../modules/arangodb.nix
-      ../../modules/postgresql.nix
-      # RAGFlow dependencies
-      ../../modules/redis.nix
-      ../../modules/elasticsearch.nix
-      ../../modules/minio.nix
-      # RAGFlow application
-      ../../modules/ragflow.nix
-      # Reverse proxy
-      ../../modules/nginx.nix
+      ../../modules/github-runner.nix
     ];
 
   nixpkgs.config.allowUnfree = lib.mkDefault true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Ghostty terminfo so SSH from Ghostty terminal works correctly
+  environment.systemPackages = [ pkgs.ghostty.terminfo ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {

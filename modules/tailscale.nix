@@ -24,7 +24,7 @@ in
     allowedUDPPorts = [ (lib.attrByPath [ "services" "tailscale" "port" ] 41641 config) ];
     allowedTCPPorts = [
       22   # SSH
-      80   # Nginx (RAGFlow via Tailscale)
+      80   # HTTP
     ];
   };
 }

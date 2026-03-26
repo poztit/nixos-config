@@ -91,6 +91,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
             home-manager.users.francoisillien = import ./home/mac.nix;
             home-manager.sharedModules = [
               sops-nix.homeManagerModules.sops

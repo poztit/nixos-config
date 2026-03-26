@@ -19,6 +19,8 @@
     ];
   };
 
+  nix.settings.trusted-users = [ "admin" ];
+
   # Configure sudo access for admin user
   security.sudo.extraRules = [
     {

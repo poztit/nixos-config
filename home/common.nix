@@ -76,9 +76,12 @@
         enable = true;
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
-        "oh-my-zsh" = {
-          enable = true;
-          plugins = [ "history" ];
+        history = {
+          size = 10000;
+          save = 10000;
+          ignoreAllDups = true;
+          ignoreSpace = true;
+          share = true;
         };
         localVariables = {
           ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=#a89984";

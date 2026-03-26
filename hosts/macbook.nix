@@ -43,7 +43,7 @@
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
     };
     home-builder = {
-      hostNames = [ "100.108.195.45" ];
+      hostNames = [ "100.72.192.76" ];
       publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKGfO1kZxCImWUUjXz3HJb01xBn0FP8XiIel61uBxEkY";
     };
   };
@@ -62,7 +62,7 @@
         supportedFeatures = [ "benchmark" "big-parallel" ];
       }
       {
-        hostName = "100.108.195.45";
+        hostName = "100.72.192.76";
         sshUser = "builder";
         system = "x86_64-linux";
         protocol = "ssh"; # (Nix uses ssh-ng under the hood when available)
