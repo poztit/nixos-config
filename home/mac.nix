@@ -81,7 +81,7 @@ in
     initExtra = posixDynamicEnv;
   };
 
-  programs.zsh.initExtra = posixDynamicEnv;
+  programs.zsh.initContent = posixDynamicEnv;
 
   programs.ghostty = {
     enable = true;
@@ -92,6 +92,7 @@ in
       font-family = "JetBrainsMono Nerd Font";
       font-size = 14;
       cursor-style = "block";
+      shell-integration-features = "no-cursor,no-sudo,title";
       command = "${pkgs.zsh}/bin/zsh";
     };
   };

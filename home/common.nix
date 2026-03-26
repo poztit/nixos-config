@@ -28,11 +28,6 @@
       nerd-fonts.fantasque-sans-mono
       nerd-fonts.iosevka
       nerd-fonts.jetbrains-mono
-      fira
-      source-code-pro
-      source-sans-pro
-      source-serif
-      open-sans
       google-fonts
 
       # Development tools
@@ -63,9 +58,13 @@
         };
         signing.key = "DB5372EA1A0CAAD5206F966E1E5F31E85D6D31FB";
         signing.signByDefault = true;
+        signing.format = "openpgp";
       };
 
-      starship.enable = true;
+      starship = {
+        enable = true;
+        settings.command_timeout = 1000;
+      };
 
       direnv = {
         enable = true;

@@ -1,6 +1,18 @@
 { self, pkgs, ... }: {
 
   nixpkgs.config.allowUnfree = true;
+  # HACK: direnv's GNUmakefile sets -linkmode=external on Darwin but CGO is
+  # disabled, causing build failure. Remove once fixed upstream in nixpkgs.
+  nixpkgs.overlays = [
+    (final: prev: {
+      direnv = prev.direnv.overrideAttrs {
+        postPatch = (prev.direnv.postPatch or "") + ''
+          substituteInPlace GNUmakefile \
+            --replace-fail '-linkmode=external' ""
+        '';
+      };
+    })
+  ];
 
   imports =
     [
