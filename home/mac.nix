@@ -25,9 +25,13 @@ in
     stateVersion = "24.11";
     file.".hushlogin".text = "";
     sessionVariables = {
-      PATH = "$HOME/.lmstudio/bin:$HOME/.local/bin:$PATH";
       EDITOR = "nvim";
     };
+    sessionPath = [
+      "$HOME/.opencode/bin"
+      "$HOME/.lmstudio/bin"
+      "$HOME/.local/bin"
+    ];
   };
 
   # macOS-specific packages

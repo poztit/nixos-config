@@ -66,6 +66,15 @@
         settings.command_timeout = 1000;
       };
 
+      eza = {
+        enable = true;
+        icons = "auto";
+        git = true;
+        extraOptions = [
+          "--group-directories-first"
+        ];
+      };
+
       direnv = {
         enable = true;
         nix-direnv.enable = true;
@@ -82,6 +91,25 @@
           ignoreSpace = true;
           share = true;
         };
+        initContent = ''
+          # CSI u (kitty keyboard protocol) bindings for Ctrl+ keys
+          # Format: \e[<unicode codepoint>;<modifier>u where 5 = Ctrl
+          bindkey '\e[97;5u'  beginning-of-line                    # Ctrl+A
+          bindkey '\e[98;5u'  backward-char                        # Ctrl+B
+          bindkey '\e[100;5u' delete-char-or-list                  # Ctrl+D
+          bindkey '\e[101;5u' end-of-line                          # Ctrl+E
+          bindkey '\e[102;5u' forward-char                         # Ctrl+F
+          bindkey '\e[104;5u' backward-delete-char                 # Ctrl+H
+          bindkey '\e[107;5u' kill-line                            # Ctrl+K
+          bindkey '\e[108;5u' clear-screen                         # Ctrl+L
+          bindkey '\e[110;5u' down-line-or-history                 # Ctrl+N
+          bindkey '\e[112;5u' up-line-or-history                   # Ctrl+P
+          bindkey '\e[114;5u' history-incremental-search-backward  # Ctrl+R
+          bindkey '\e[116;5u' transpose-chars                      # Ctrl+T
+          bindkey '\e[117;5u' kill-whole-line                      # Ctrl+U
+          bindkey '\e[119;5u' backward-kill-word                   # Ctrl+W
+          bindkey '\e[121;5u' yank                                 # Ctrl+Y
+        '';
         localVariables = {
           ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE = "fg=#a89984";
           LESS_TERMCAP_mb = "$'\\E[01;31m'";

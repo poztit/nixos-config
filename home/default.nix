@@ -25,17 +25,7 @@ in
       MOZ_ENABLE_WAYLAND = 1;
     };
     shellAliases = {
-      # Replace ls by eza
-      ls = "eza --sort type --classify";
-      l = "eza --sort type --classify";
-      ll = "eza --long --icons --sort type --classify";
-      lll = "eza --long --icons --all --sort type --classify";
-      la = "eza --all --sort type --classify";
-      lla = "eza --long --icons --all --sort type --classify";
-      lt = "eza --tree --sort type";
-
       ccat = "pygmentize -g -O style=stata-dark,linenos=1";
-
       vim = "nvim";
     };
     sessionPath = [ "$HOME/univ-nantes/tools" "$HOME/univ-nantes/thèse/tools" ];
@@ -50,7 +40,6 @@ in
     doxygen
     endless-sky
     evince
-    eza
     firefox
     framesh
     fwupd
