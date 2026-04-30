@@ -31,6 +31,7 @@
     trusted-users = [ "root" "builder" ];
     max-jobs = 8;
     cores = 0;
+    sandbox = "relaxed";
     system-features = [ "benchmark" "big-parallel" "kvm" "nixos-test" ];
   };
 
