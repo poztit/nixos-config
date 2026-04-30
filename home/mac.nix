@@ -1,12 +1,13 @@
 { lib, config, pkgs, ... }:
 
-let
+  let
   # Dynamic environment variables shared between POSIX shells (zsh, bash)
   posixDynamicEnv = ''
     export GPG_TTY=$(tty)
     export SSH_AUTH_SOCK=$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
     export OPENAI_API_KEY=$(cat ${config.sops.secrets.openai_key.path})
     export XAI_API_KEY=$(cat ${config.sops.secrets.xai_key.path})
+    export OPENCODE_ENABLE_EXA=1
   '';
 in
 {

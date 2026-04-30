@@ -80,11 +80,14 @@
         nix-direnv.enable = true;
       };
 
-      zsh = {
-        enable = true;
-        autosuggestion.enable = true;
-        syntaxHighlighting.enable = true;
-        history = {
+        zsh = {
+          enable = true;
+          autosuggestion.enable = true;
+          syntaxHighlighting.enable = true;
+          sessionVariables = {
+            OPENCODE_ENABLE_EXA = "1";
+          };
+          history = {
           size = 10000;
           save = 10000;
           ignoreAllDups = true;
